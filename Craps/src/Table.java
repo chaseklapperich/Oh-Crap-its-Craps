@@ -12,11 +12,11 @@ public class Table {
 	
 	public void roll() {
 		int[] roll = dice.cast();
-		userIn.next();
-		System.out.println(roll);
+		System.out.println(roll[0] + "," + roll[1] + " = " + (roll[0]+roll[1]));
 		players.forEach( (player) -> player.roll(roll));
-		players.forEach( (player) -> System.out.println(
+		players.forEach( (player) -> System.out.println(player.getName() + "- " +
 				"Bankroll: " + player.getBankRoll() + ", Active: " + player.getActive()));
+		userIn.next();
 	}
 
 	public void addPlayer(Player toAdd){

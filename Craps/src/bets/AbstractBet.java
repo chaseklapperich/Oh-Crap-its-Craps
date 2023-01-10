@@ -82,6 +82,10 @@ abstract public class AbstractBet {
 		return betAmount == 0;
 	}
 
+	public int getBetAmount(){
+		return betAmount;
+	}
+
 	public int pullDown() {
 		int toReturn = betAmount;
 		clearBet();

@@ -55,8 +55,10 @@ public class PassLine extends AbstractBet {
         else if (betLost(roll))
             return -betAmount;
         else
-            if (comeOut)
+            if (comeOut) {
                 point = diceSum(roll);
+                comeOut = false;
+            }
             return 0;
     }
 }
