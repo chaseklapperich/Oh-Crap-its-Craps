@@ -19,7 +19,7 @@ abstract class AbstractBet {
 	 * @return A boolean, whether or not the roll has resulted in a
 	 * 		   winning bet
 	 */
-	abstract boolean betWon(int roll);
+	abstract boolean betWon(int[] roll);
 	
 	/**
 	 * Determines which numbers result in a loss for the current bet 
@@ -28,7 +28,7 @@ abstract class AbstractBet {
 	 * @return A boolean, whether or not the roll has resulted in a
 	 * 		   winning bet
 	 */
-	abstract boolean betLost(int roll);
+	abstract boolean betLost(int[] roll);
 	
 	/**
 	 * Calculates the winnings/loss after a given roll
@@ -36,7 +36,7 @@ abstract class AbstractBet {
 	 * @param roll - The sum of the last dice roll
 	 * @return An int, the winnings/loss of the roll
 	 */
-	public int processRoll(int roll) {
+	public int processRoll(int[] roll) {
 		if (betWon(roll))
 			return betAmount / odds[1] * odds[0];
 		else if (betLost(roll))
@@ -66,11 +66,24 @@ abstract class AbstractBet {
 		else
 			betAmount -= decrease;
 	}
-	
 	/**
 	 * Clears the amount bet
 	 */
 	public void clearBet() {
 		betAmount = 0;
+	}
+
+	public boolean isEmpty() {
+		return betAmount == 0;
+	}
+
+	public int pullDown() {
+		int toReturn = betAmount;
+		clearBet();
+		return toReturn;
+	}
+
+	protected int diceSum(int[] dice) {
+		return dice[0] + dice[1];
 	}
 }

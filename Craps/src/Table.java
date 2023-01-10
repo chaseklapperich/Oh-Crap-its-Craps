@@ -1,14 +1,13 @@
 
 public class Table {
-	Die[] dice = new Die[2];
+	Dice dice = new Dice();
 	
 	public void newShooter() {
-		dice[0] = new Die();
-		dice[1] = new Die();
+		dice = new Dice();
 	}
 	
 	public void roll() {
-		System.out.println(dice[0].cast() + dice[1].cast());
+		System.out.println(dice.cast());
 	}
 	
 	
