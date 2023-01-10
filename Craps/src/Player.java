@@ -1,3 +1,4 @@
+import bets.AbstractBet;
 import java.util.ArrayList;
 
 public class Player{
@@ -13,7 +14,13 @@ public class Player{
     }
 
     public void roll(int[] rollResult){
-        betsMade.forEach( (bet) -> bankroll += bet.processRoll(rollResult));
+        betsMade.forEach( (bet) -> {
+            int amount = bet.processRoll(rollResult);
+            if (amount > 0)
+                bankroll += amount;
+            else
+                active -= amount;
+        });
     }
 
     public void pullDownBets(){
@@ -23,6 +30,14 @@ public class Player{
             bankroll += amountReturned;
         });
         removeEmptyBets();
+    }
+
+    public int getBankRoll(){
+        return bankroll;
+    }
+
+    public int getActive(){
+        return active;
     }
 
     private void removeEmptyBets(){
