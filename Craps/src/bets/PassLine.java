@@ -50,15 +50,22 @@ public class PassLine extends AbstractBet {
      */
     @Override
     public int processRoll(int[] roll) {
-        if (betWon(roll))
-            return betAmount / odds[1] * odds[0];
-        else if (betLost(roll))
-            return -betAmount;
-        else
-            if (comeOut) {
-                point = diceSum(roll);
-                comeOut = false;
-            }
-            return 0;
+        int winnings = 0;
+        if (betWon(roll)) {
+            System.out.println("Passline Won!");
+            winnings = betAmount / odds[1] * odds[0] + betAmount;
+            betAmount = 0;
+        }
+        else if (betLost(roll)){
+            System.out.println("Passline Lost!");
+            winnings = -betAmount;
+            betAmount = 0;
+        }
+        if (comeOut) {
+            point = diceSum(roll);
+            comeOut = false;
+            System.out.println("Passline Set!");
+        }
+        return winnings;
     }
 }

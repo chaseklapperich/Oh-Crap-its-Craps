@@ -11,10 +11,12 @@ public class Player{
         this.name = name;
         bankroll = initialBankroll;
     }
-    public void placeBet(int amountBet, AbstractBet newBet){
-        bankroll -= amountBet;
-        newBet.increaseBet(amountBet);
-        active += amountBet;
+    public void placeBet(AbstractBet newBet){
+        int amountToPlace = newBet.getBetAmount();
+        if (bankroll < amountToPlace)
+            return;
+        bankroll -= amountToPlace;
+        active += amountToPlace;
         betsMade.add(newBet);
     }
 

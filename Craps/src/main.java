@@ -10,8 +10,8 @@ public class main {
         table.addPlayer(c);
         table.addPlayer(dc);
         while(true){
-            c.placeBet(100, new PassLine(100));
-            dc.placeBet(100, new DontPass(100));
+            c.placeBet(new PassLine(100));
+            dc.placeBet(new DontPass(100));
             table.roll();
         }
 
