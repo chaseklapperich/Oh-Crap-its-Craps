@@ -10,10 +10,13 @@ package bets;
  *
  */
 abstract public class AbstractBet {
+    protected String name;
     protected int[] odds = new int[2];
     protected int betAmount;
     protected boolean working;
     protected boolean stayUpAfterWin;
+    protected static boolean comeOut = true;
+    protected static int point;
 
     public AbstractBet(int amountBet){
         betAmount = amountBet;
@@ -47,14 +50,20 @@ abstract public class AbstractBet {
     public int processRoll(int[] roll) {
         int winnings = 0;
         if (betWon(roll)) {
-            winnings = betAmount / odds[1] * odds[0];
-            if (!stayUpAfterWin){
-                winnings += betAmount;
-                betAmount = 0;
-            }
-        }
-        else if (betLost(roll))
+            System.out.println(name + " Won!");
+            winnings = betAmount / odds[1] * odds[0] + betAmount;
             betAmount = 0;
+        }
+        else if (betLost(roll)){
+            System.out.println(name + " Lost!");
+            winnings = -betAmount;
+            betAmount = 0;
+        }
+        if (comeOut) {
+            point = diceSum(roll);
+            comeOut = false;
+            System.out.println(name + " Set!");
+        }
         return winnings;
     }
 
@@ -99,11 +108,11 @@ abstract public class AbstractBet {
         clearBet();
         return toReturn;
     }
-    public void setWorking(boolean onOff){
-        working = onOff;
+    public void setWorking(boolean toSet){
+        working = toSet;
     }
-    public void setStayUpAfterWin(boolean onOff){
-        stayUpAfterWin = onOff;
+    public void setStayUpAfterWin(boolean toSet){
+        stayUpAfterWin = toSet;
     }
     protected int diceSum(int[] dice) {
         return dice[0] + dice[1];

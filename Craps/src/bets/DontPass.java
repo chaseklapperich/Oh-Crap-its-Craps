@@ -1,11 +1,9 @@
 package bets;
 
 public class DontPass extends AbstractBet{
-    private boolean comeOut = true;
-    private int point;
-
     public DontPass(int amountBet) {
         super(amountBet);
+        name = "DontPass";
         odds = new int[] {1,1};
     }
 
@@ -19,12 +17,12 @@ public class DontPass extends AbstractBet{
     @Override
     boolean betWon(int[] roll) {
         int sum = diceSum(roll);
-        if ( ((sum == 2 || sum == 3) && comeOut) || ((sum == 7) && !comeOut) ){
+        boolean winConditionMet = ((sum == 2 || sum == 3) && comeOut) || ((sum == 7) && !comeOut);
+        if ( winConditionMet ){
             point = 0;
             comeOut = true;
-            return true;
         }
-        return false;
+        return winConditionMet;
     }
 
     /**

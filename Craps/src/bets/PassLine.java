@@ -1,12 +1,9 @@
 package bets;
 
 public class PassLine extends AbstractBet {
-
-    private boolean comeOut = true;
-    private int point;
-
     public PassLine(int amountBet) {
         super(amountBet);
+        name = "PassLine";
         odds = new int[] {1,1};
     }
 
@@ -40,32 +37,5 @@ public class PassLine extends AbstractBet {
     boolean betLost(int[] roll) {
         int sum = diceSum(roll);
         return ((sum == 2 || sum == 3 || sum == 12) && comeOut) || (sum == 7 && !comeOut);
-    }
-
-    /**
-     * Calculates the winnings/loss after a given roll
-     *
-     * @param roll - The sum of the last dice roll
-     * @return An int, the winnings/loss of the roll
-     */
-    @Override
-    public int processRoll(int[] roll) {
-        int winnings = 0;
-        if (betWon(roll)) {
-            System.out.println("Passline Won!");
-            winnings = betAmount / odds[1] * odds[0] + betAmount;
-            betAmount = 0;
-        }
-        else if (betLost(roll)){
-            System.out.println("Passline Lost!");
-            winnings = -betAmount;
-            betAmount = 0;
-        }
-        if (comeOut) {
-            point = diceSum(roll);
-            comeOut = false;
-            System.out.println("Passline Set!");
-        }
-        return winnings;
     }
 }
