@@ -15,9 +15,6 @@ abstract public class AbstractBet {
     protected int betAmount;
     protected boolean working;
     protected boolean stayUpAfterWin;
-    protected static boolean comeOut = true;
-    protected static int point;
-
     public AbstractBet(int amountBet){
         betAmount = amountBet;
         working = true;
@@ -47,7 +44,7 @@ abstract public class AbstractBet {
      * @param roll - The sum of the last dice roll
      * @return An int, the winnings/loss of the roll
      */
-    public int processRoll(int[] roll) {
+    public int processRoll(int[] roll, boolean comeOut, int point) {
         int winnings = 0;
         if (betWon(roll)) {
             System.out.println(name + " Won!");
@@ -58,11 +55,6 @@ abstract public class AbstractBet {
             System.out.println(name + " Lost!");
             winnings = -betAmount;
             betAmount = 0;
-        }
-        if (comeOut) {
-            point = diceSum(roll);
-            comeOut = false;
-            System.out.println(name + " Set!");
         }
         return winnings;
     }

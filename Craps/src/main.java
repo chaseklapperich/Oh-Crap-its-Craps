@@ -1,5 +1,4 @@
 import bets.DontPass;
-import bets.PassLine;
 
 public class main {
 
@@ -9,9 +8,13 @@ public class main {
         Player dc = new Player("dc", 1000);
         table.addPlayer(c);
         table.addPlayer(dc);
+        int i = 1;
         while(true){
-            c.placeBet(new PassLine(100));
-            dc.placeBet(new DontPass(100));
+            if (i <= 4) {
+                c.placeBet(100, "PassLine");
+                dc.placeBet(100, "DontPass");
+            }
+            i++;
             table.roll();
         }
 
