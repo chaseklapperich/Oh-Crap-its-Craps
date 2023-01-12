@@ -1,8 +1,16 @@
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Dice {
-	public int[] cast() {
-		return new int[]{ThreadLocalRandom.current().nextInt(1, 7),
-				ThreadLocalRandom.current().nextInt(1, 7)};
+	int dieOne;
+	int dieTwo;
+	public void roll(){
+		dieOne = ThreadLocalRandom.current().nextInt(1, 7);
+		dieTwo = ThreadLocalRandom.current().nextInt(1, 7);
+	}
+	public int[] lookAtDice() {
+		return new int[]{dieOne, dieTwo};
+	}
+	public int sum(){
+		return dieOne + dieTwo;
 	}
 }
