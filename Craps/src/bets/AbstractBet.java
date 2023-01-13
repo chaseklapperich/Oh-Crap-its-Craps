@@ -54,7 +54,6 @@ abstract public class AbstractBet {
         }
         else if (betLost(roll)){
             System.out.println(name + " Lost!");
-            winnings = -betAmount;
             betAmount = 0;
         }
         return winnings;
