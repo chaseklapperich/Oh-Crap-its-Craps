@@ -2,15 +2,15 @@ package model;
 
 import bets.*;
 public class BetFactory {
-    public AbstractBet placeBet(int ammount, String betName){
+    public AbstractBet placeBet(int amount, String betName){
         if (betName == null){
             return null;
         }
         if (betName.equalsIgnoreCase("PassLine")) {
-            return new PassLine(ammount);
+            return new PassLine(amount);
 
         } else if (betName.equalsIgnoreCase("DontPass")){
-            return new DontPass(ammount);
+            return new DontPass(amount);
 
         }
         else
