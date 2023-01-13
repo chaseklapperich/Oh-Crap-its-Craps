@@ -1,4 +1,4 @@
-package model;
+import model.Table;
 
 public class main {
 
@@ -6,13 +6,13 @@ public class main {
         Table table = new Table();
         table.addPlayer("Pass", 1000);
         table.addPlayer("Dont", 1000);
-        int i = 1;
         while(true){
-            if (i <= 4) {
+            if(table.getPlayer("Pass").getActive() == 0){
                 table.getPlayer("Pass").placeBet(100, "PassLine");
+            }
+            if(table.getPlayer("Dont").getActive() == 0){
                 table.getPlayer("Dont").placeBet(100, "DontPass");
             }
-            i++;
             table.roll();
         }
 
