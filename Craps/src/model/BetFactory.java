@@ -1,3 +1,5 @@
+package model;
+
 import bets.*;
 public class BetFactory {
     public AbstractBet placeBet(int ammount, String betName){

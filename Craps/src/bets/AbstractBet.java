@@ -1,4 +1,5 @@
 package bets;
+import model.Dice;
 
 /*
  * Abstract class for all bets that can be made in a game of craps.
@@ -27,7 +28,7 @@ abstract public class AbstractBet {
      * @return A boolean, whether the roll has resulted in a
      * 		   winning bet
      */
-    abstract boolean betWon(int[] roll);
+    abstract boolean betWon(Dice roll);
 
     /**
      * Determines which numbers result in a loss for the current bet
@@ -36,7 +37,7 @@ abstract public class AbstractBet {
      * @return A boolean, whether the roll has resulted in a
      * 		   winning bet
      */
-    abstract boolean betLost(int[] roll);
+    abstract boolean betLost(Dice roll);
 
     /**
      * Calculates the winnings/loss after a given roll
@@ -44,7 +45,7 @@ abstract public class AbstractBet {
      * @param roll - The sum of the last dice roll
      * @return An int, the winnings/loss of the roll
      */
-    public int processRoll(int[] roll, boolean comeOut, int point) {
+    public int processRoll(Dice roll) {
         int winnings = 0;
         if (betWon(roll)) {
             System.out.println(name + " Won!");
@@ -105,8 +106,5 @@ abstract public class AbstractBet {
     }
     public void setStayUpAfterWin(boolean toSet){
         stayUpAfterWin = toSet;
-    }
-    protected int diceSum(int[] dice) {
-        return dice[0] + dice[1];
     }
 }

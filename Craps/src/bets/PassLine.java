@@ -1,4 +1,5 @@
 package bets;
+import model.Dice;
 
 public class PassLine extends AbstractBet {
     public PassLine(int amountBet) {
@@ -16,14 +17,9 @@ public class PassLine extends AbstractBet {
      * winning bet
      */
     @Override
-    boolean betWon(int[] roll) {
-        int sum = diceSum(roll);
-        if ( ((sum == 7 || sum == 11 ) && comeOut) || (sum == point) ){
-            point = 0;
-            comeOut = true;
-            return true;
-        }
-        return false;
+    boolean betWon(Dice roll) {
+        int sum = roll.sum();
+        return ( ((sum == 7 || sum == 11 ) && roll.isComeOut()) || (sum == roll.getPoint()) );
     }
 
     /**
@@ -34,8 +30,8 @@ public class PassLine extends AbstractBet {
      * winning bet
      */
     @Override
-    boolean betLost(int[] roll) {
-        int sum = diceSum(roll);
-        return ((sum == 2 || sum == 3 || sum == 12) && comeOut) || (sum == 7 && !comeOut);
+    boolean betLost(Dice roll) {
+        int sum = roll.sum();
+        return ((sum == 2 || sum == 3 || sum == 12) && roll.isComeOut()) || (sum == 7 && !roll.isComeOut());
     }
 }
