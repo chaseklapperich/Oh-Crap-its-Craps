@@ -1,3 +1,5 @@
+package model;
+
 import bets.AbstractBet;
 import java.util.ArrayList;
 
@@ -5,14 +7,16 @@ public class Player{
     private int bankroll;
     private int active;
     private String name;
+    private Table table;
     private ArrayList<AbstractBet> betsMade = new ArrayList<>();
+    private final static BetFactory betFactory = new BetFactory();;
 
-    public Player(String name, int initialBankroll){
+    public Player(String name, int initialBankroll, Table table){
         this.name = name;
         bankroll = initialBankroll;
     }
-    public void placeBet(AbstractBet newBet){
-        int amountToPlace = newBet.getBetAmount();
+    public void placeBet(int amountToPlace, String betName){
+        AbstractBet newBet = betFactory.placeBet(amountToPlace, betName);
         if (bankroll < amountToPlace)
             return;
         bankroll -= amountToPlace;
@@ -20,10 +24,10 @@ public class Player{
         betsMade.add(newBet);
     }
 
-    public void roll(int[] rollResult){
+    public void roll(Dice dice){
         active = 0;
         betsMade.forEach( (bet) -> {
-            bankroll += bet.processRoll(rollResult);
+            bankroll += bet.processRoll(dice);
             active += bet.getBetAmount();
         });
         removeEmptyBets();
