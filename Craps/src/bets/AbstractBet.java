@@ -81,20 +81,32 @@ abstract public class AbstractBet {
             betAmount -= decrease;
     }
     /**
-     * Clears the amount bet
+     * Clears the amount bet. Useful for clearing bets when lost
      */
     public void clearBet() {
         betAmount = 0;
     }
 
+    /**
+     * Checks if there is nothing left on the bet. Useful for removing empty bets
+     * @return a boolean, whether the bet is empty
+     */
     public boolean isEmpty() {
         return betAmount == 0;
     }
 
+    /**
+     * Getter for the amount of money placed on bet.
+     * @return an int, the amount of money placed on the corresponding bet.
+     */
     public int getBetAmount(){
         return betAmount;
     }
 
+    /**
+     * Pulls all money off of the bet and returns it. Useful for taking money off of a bet
+     * @return an int, the amount of money that was previously on the bet
+     */
     public int pullDown() {
         int toReturn = betAmount;
         clearBet();
