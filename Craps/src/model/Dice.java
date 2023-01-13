@@ -5,28 +5,34 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Dice {
 	private int dieOne;
 	private int dieTwo;
-	private boolean comeOut;
 	private int point;
+	private boolean comeOut;
+	private boolean newShooter;
+
 
 	public Dice() {
-		comeOut = true;
-		point = 0;
+		reset();
 	}
-	public void roll(){
+	public void roll() {
 		dieOne = ThreadLocalRandom.current().nextInt(1, 7);
 		dieTwo = ThreadLocalRandom.current().nextInt(1, 7);
 		int sum = sum();
-		if (comeOut){
+		if(newShooter){
+			reset();
+		}
+		if(comeOut && point != 0){
+			comeOut = false;
+		}
+		if (comeOut) {
 			// Non craps-numbers and 7
-			if (!(sum == 2 || sum == 3 || sum == 7 || sum == 12) ){
+			if (!(sum == 2 || sum == 3 || sum == 7 || sum == 12)) {
 				point = sum;
-				comeOut = false;
 			}
-		} else {
+		}
+		else {
 			// Seven-out
 			if (sum == 7) {
-				comeOut = true;
-				point = 0;
+				newShooter = true;
 			}
 		}
 	}
@@ -42,5 +48,10 @@ public class Dice {
 
 	public int getPoint(){
 		return point;
+	}
+	private void reset(){
+		point = 0;
+		comeOut = true;
+		newShooter = false;
 	}
 }
