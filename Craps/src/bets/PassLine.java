@@ -19,7 +19,7 @@ public class PassLine extends AbstractBet {
     @Override
     boolean betWon(Dice roll) {
         int sum = roll.sum();
-        return ( ((sum == 7 || sum == 11 ) && roll.isComeOut()) || (sum == roll.getPoint()) );
+        return ( ((sum == 7 || sum == 11 ) && roll.isComeOut()) || (sum == roll.getPoint() && !roll.isComeOut()) );
     }
 
     /**
