@@ -30,7 +30,7 @@ public class Table {
 	}
 
 	public void addPlayer(String name, int buyIn){
-		addPlayer(new Player(name, buyIn, this));
+		addPlayer(new Player(name, buyIn));
 	}
 
 	public Player getPlayer(String name){

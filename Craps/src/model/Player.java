@@ -7,11 +7,10 @@ public class Player{
     private int bankroll;
     private int active;
     private String name;
-    private Table table;
     private ArrayList<AbstractBet> betsMade = new ArrayList<>();
     private final static BetFactory betFactory = new BetFactory();;
 
-    public Player(String name, int initialBankroll, Table table){
+    public Player(String name, int initialBankroll){
         this.name = name;
         bankroll = initialBankroll;
     }
