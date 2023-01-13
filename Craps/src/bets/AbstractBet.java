@@ -1,4 +1,5 @@
 package bets;
+import model.Dice;
 
 /*
  * Abstract class for all bets that can be made in a game of craps.
@@ -10,11 +11,11 @@ package bets;
  *
  */
 abstract public class AbstractBet {
+    protected String name;
     protected int[] odds = new int[2];
     protected int betAmount;
     protected boolean working;
     protected boolean stayUpAfterWin;
-
     public AbstractBet(int amountBet){
         betAmount = amountBet;
         working = true;
@@ -27,7 +28,7 @@ abstract public class AbstractBet {
      * @return A boolean, whether the roll has resulted in a
      * 		   winning bet
      */
-    abstract boolean betWon(int[] roll);
+    abstract boolean betWon(Dice roll);
 
     /**
      * Determines which numbers result in a loss for the current bet
@@ -36,7 +37,7 @@ abstract public class AbstractBet {
      * @return A boolean, whether the roll has resulted in a
      * 		   winning bet
      */
-    abstract boolean betLost(int[] roll);
+    abstract boolean betLost(Dice roll);
 
     /**
      * Calculates the winnings/loss after a given roll
@@ -44,17 +45,18 @@ abstract public class AbstractBet {
      * @param roll - The sum of the last dice roll
      * @return An int, the winnings/loss of the roll
      */
-    public int processRoll(int[] roll) {
+    public int processRoll(Dice roll) {
         int winnings = 0;
         if (betWon(roll)) {
-            winnings = betAmount / odds[1] * odds[0];
-            if (!stayUpAfterWin){
-                winnings += betAmount;
-                betAmount = 0;
-            }
-        }
-        else if (betLost(roll))
+            System.out.println(name + " Won!");
+            winnings = betAmount / odds[1] * odds[0] + betAmount;
             betAmount = 0;
+        }
+        else if (betLost(roll)){
+            System.out.println(name + " Lost!");
+            winnings = -betAmount;
+            betAmount = 0;
+        }
         return winnings;
     }
 
@@ -99,13 +101,10 @@ abstract public class AbstractBet {
         clearBet();
         return toReturn;
     }
-    public void setWorking(boolean onOff){
-        working = onOff;
+    public void setWorking(boolean toSet){
+        working = toSet;
     }
-    public void setStayUpAfterWin(boolean onOff){
-        stayUpAfterWin = onOff;
-    }
-    protected int diceSum(int[] dice) {
-        return dice[0] + dice[1];
+    public void setStayUpAfterWin(boolean toSet){
+        stayUpAfterWin = toSet;
     }
 }

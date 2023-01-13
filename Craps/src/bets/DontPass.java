@@ -1,11 +1,10 @@
 package bets;
+import model.Dice;
 
 public class DontPass extends AbstractBet{
-    private boolean comeOut = true;
-    private int point;
-
     public DontPass(int amountBet) {
         super(amountBet);
+        name = "DontPass";
         odds = new int[] {1,1};
     }
 
@@ -17,14 +16,9 @@ public class DontPass extends AbstractBet{
      * winning bet
      */
     @Override
-    boolean betWon(int[] roll) {
-        int sum = diceSum(roll);
-        if ( ((sum == 2 || sum == 3) && comeOut) || ((sum == 7) && !comeOut) ){
-            point = 0;
-            comeOut = true;
-            return true;
-        }
-        return false;
+    boolean betWon(Dice roll) {
+        int sum = roll.sum();
+        return ((sum == 2 || sum == 3) && roll.isComeOut()) || ((sum == 7) && !roll.isComeOut());
     }
 
     /**
@@ -35,8 +29,8 @@ public class DontPass extends AbstractBet{
      * winning bet
      */
     @Override
-    boolean betLost(int[] roll) {
-        int sum = diceSum(roll);
-        return  ((sum == 7 || sum == 11 ) && comeOut) || (sum == point);
+    boolean betLost(Dice roll) {
+        int sum = roll.sum();
+        return  ((sum == 7 || sum == 11 ) && roll.isComeOut()) || (sum == roll.getPoint());
     }
 }
